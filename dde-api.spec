@@ -1,25 +1,11 @@
-# Run tests in check section
-# disable for bootstrapping
-%bcond_with check
-
-# out of memory on armv7hl
-%ifarch %{arm}
-%global _smp_mflags -j1
-%endif
-
-%global goipath  github.com/linuxdeepin/dde-api
-%global forgeurl https://github.com/linuxdeepin/dde-api
-Version:         5.5.32
-%global tag     %{version}
-
-%gometa
-
 Name:           dde-api
-Release:        %autorelease
+Release:        1
+Version:	6.0.11
 Summary:        Go-lang bingding for dde-daemon
 License:        GPLv3+
-URL:            %{gourl}
-Source0:        %{gosource}
+URL:            https://github.com/linuxdeepin/dde-api
+Source0:        https://github.com/linuxdeepin/dde-api/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
+Source1:	godeps-for-dde-api-6.0.11.tar.xz
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(cairo-ft)
@@ -41,14 +27,15 @@ BuildRequires:  deepin-gettext-tools
 BuildRequires:  deepin-gir-generator
 BuildRequires:  golang(github.com/linuxdeepin/go-lib)
 BuildRequires:  golang(github.com/linuxdeepin/go-x11-client)
-BuildRequires:  golang(github.com/linuxdeepin/go-dbus-factory/org.bluez)
-BuildRequires:  golang(github.com/disintegration/imaging)
-BuildRequires:  golang(github.com/fogleman/gg)
-BuildRequires:  golang(github.com/nfnt/resize)
-BuildRequires:  golang(gopkg.in/alecthomas/kingpin.v2)
-BuildRequires:  golang(github.com/mattn/go-sqlite3)
-BuildRequires:  golang(github.com/gosexy/gettext)
-BuildRequires:  golang(github.com/rickb777/date)
+BuildRequires:	golang-github-linuxdeepin-dbus-factory
+#BuildRequires:  golang(github.com/linuxdeepin/go-dbus-factory/org.bluez)
+#BuildRequires:  golang(github.com/disintegration/imaging)
+#BuildRequires:  golang(github.com/fogleman/gg)
+#BuildRequires:  golang(github.com/nfnt/resize)
+#BuildRequires:  golang(gopkg.in/alecthomas/kingpin.v2)
+#BuildRequires:  golang(github.com/mattn/go-sqlite3)
+#BuildRequires:  golang(github.com/gosexy/gettext)
+#BuildRequires:  golang(github.com/rickb777/date)
 BuildRequires:  make
 BuildRequires:  systemd-rpm-macros
 %{?systemd_requires}
@@ -70,7 +57,7 @@ building other packages which use import path with
 %{goipath} prefix.
 
 %prep
-%goprep
+%autosetup -p1
 
 sed -i 's|boot/grub/|boot/grub2/|' adjust-grub-theme/main.go
 
