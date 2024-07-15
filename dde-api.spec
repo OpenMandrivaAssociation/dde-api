@@ -57,7 +57,7 @@ building other packages which use import path with
 %{goipath} prefix.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -a1
 
 sed -i 's|boot/grub/|boot/grub2/|' adjust-grub-theme/main.go
 
@@ -72,13 +72,10 @@ print_libraries:
 EOF
 
 %build
-%__make prepare
-# upstream Makefile expects binaries generated to out/bin
-for cmd in $(make print_binaries); do
-    %gobuild -o out/bin/$cmd %{goipath}/$cmd
-done
-# don't build binaries or libraries based on Makefile
-%make_build ts-to-policy
+export GOPATH=$(pwd)/.godeps:$(pwd)/gopath
+
+go generate
+go build
 
 %install
 # install dev libraries mannally
