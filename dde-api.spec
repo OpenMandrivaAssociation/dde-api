@@ -23,11 +23,12 @@ BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xi)
-BuildRequires:  deepin-gettext-tools
+#BuildRequires:  deepin-gettext-tools
 BuildRequires:  deepin-gir-generator
-BuildRequires:  golang(github.com/linuxdeepin/go-lib)
-BuildRequires:  golang(github.com/linuxdeepin/go-x11-client)
-BuildRequires:	golang-github-linuxdeepin-dbus-factory
+BuildRequires:  deepin-gir-generator
+BuildRequired:  golang-github-linuxdeepin-dbus-factory
+BuildRequires:  golang-deepin-go-lib
+BuildRequires:  golang-github-linuxdeepin-go-x11-client
 #BuildRequires:  golang(github.com/linuxdeepin/go-dbus-factory/org.bluez)
 #BuildRequires:  golang(github.com/disintegration/imaging)
 #BuildRequires:  golang(github.com/fogleman/gg)
