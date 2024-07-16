@@ -24,6 +24,7 @@ BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xi)
 #BuildRequires:  deepin-gettext-tools
+BuildRequires:  compiler(go-compiler)
 BuildRequires:  deepin-gir-generator
 BuildRequires:  deepin-gir-generator
 BuildRequires:  golang-github-linuxdeepin-dbus-factory
