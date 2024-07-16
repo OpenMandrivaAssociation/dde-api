@@ -80,19 +80,7 @@ go generate
 go build
 
 %install
-# install dev libraries mannally
-gofiles=$(find $(make print_libraries) %{?gofindfilter} -print)
-%goinstall $gofiles
-# install binaries based on Makefile
-%__make DESTDIR=%{buildroot} SYSTEMD_SERVICE_DIR="%{_unitdir}" GOBUILD_DIR=_build install-binary
-install -p -D -m 0644 archlinux/%{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.conf
-
-# Move sound-theme-player to %%{libexec}/%%{name} to get proper SELinux type
-mkdir -p %{buildroot}%{_libexecdir}/%{name}
-mv -v %{buildroot}%{_prefix}/lib/%{name}/sound-theme-player \
-      %{buildroot}%{_libexecdir}/%{name}
-ln -s ../../libexec/%{name}/sound-theme-player \
-      %{buildroot}%{_prefix}/lib/%{name}/sound-theme-player
+%make_install PREFIX=%{_prefix}
 
 %if %{with check}
 %check
