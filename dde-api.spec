@@ -26,7 +26,7 @@ BuildRequires:  pkgconfig(xi)
 #BuildRequires:  deepin-gettext-tools
 BuildRequires:  deepin-gir-generator
 BuildRequires:  deepin-gir-generator
-BuildRequired:  golang-github-linuxdeepin-dbus-factory
+BuildRequires:  golang-github-linuxdeepin-dbus-factory
 BuildRequires:  golang-deepin-go-lib
 BuildRequires:  golang-github-linuxdeepin-go-x11-client
 #BuildRequires:  golang(github.com/linuxdeepin/go-dbus-factory/org.bluez)
