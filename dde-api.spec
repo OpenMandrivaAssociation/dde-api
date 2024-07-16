@@ -1,3 +1,4 @@
+%undefine _debugsource_packages
 %global goipath github.com/linuxdeepin/dde-api
 
 Name:           dde-api
@@ -27,6 +28,7 @@ BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xi)
 #BuildRequires:  deepin-gettext-tools
 BuildRequires:  deepin-gir-generator
+BuildRequires:	deepin-gettext-tools
 BuildRequires:  golang-github-linuxdeepin-dbus-factory
 BuildRequires:  golang-deepin-go-lib
 BuildRequires:  golang-github-linuxdeepin-go-x11-client
@@ -88,50 +90,27 @@ gofiles=$(find $(make print_libraries) %{?gofindfilter} -print)
 %goinstall $gofiles
 # install binaries based on Makefile
 %__make DESTDIR=%{buildroot} SYSTEMD_SERVICE_DIR="%{_unitdir}" GOBUILD_DIR=_build install-binary
-install -p -D -m 0644 archlinux/%{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.conf
-
-# Move sound-theme-player to %%{libexec}/%%{name} to get proper SELinux type
-mkdir -p %{buildroot}%{_libexecdir}/%{name}
-mv -v %{buildroot}%{_prefix}/lib/%{name}/sound-theme-player \
-      %{buildroot}%{_libexecdir}/%{name}
-ln -s ../../libexec/%{name}/sound-theme-player \
-      %{buildroot}%{_prefix}/lib/%{name}/sound-theme-player
+install -p -D -m 0644 archlinux/deepin-api.sysusers %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %if %{with check}
 %check
 %gochecks
 %endif
 
-%pre
-%sysusers_create_compat archlinux/%{name}.sysusers
-
-%post
-%systemd_post deepin-shutdown-sound.service
-
-%preun
-%systemd_preun deepin-shutdown-sound.service
-
-%postun
-%systemd_postun_with_restart deepin-shutdown-sound.service
-
 %files
 %doc README.md
 %license LICENSE
 %{_bindir}/dde-open
-%{_libexecdir}/%{name}/
-%{_prefix}/lib/%{name}/
 %{_unitdir}/*.service
 %{_datadir}/dbus-1/services/*.service
 %{_datadir}/dbus-1/system-services/*.service
 %{_datadir}/dbus-1/system.d/*.conf
 %{_datadir}/icons/hicolor/*/actions/*
 %{_datadir}/dde-api
-%{_datadir}/polkit-1/actions/com.deepin.api.locale-helper.policy
-%{_datadir}/polkit-1/actions/com.deepin.api.device.unblock-bluetooth-devices.policy
-%{_var}/lib/polkit-1/localauthority/10-vendor.d/com.deepin.api.device.pkla
 %{_sysusersdir}/%{name}.conf
+%{_prefix}/lib/deepin-api
+%{_datadir}/polkit-1/actions/org.deepin.dde.device.unblock-bluetooth-devices.policy
+%{_datadir}/polkit-1/actions/org.deepin.dde.locale-helper.policy
+%{_localstatedir}/lib/polkit-1/localauthority/10-vendor.d/org.deepin.dde.device.pkla
 
 %files -n golang-%{name}-devel -f devel.file-list
-
-%changelog
-%autochangelog
