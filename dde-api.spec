@@ -1,3 +1,5 @@
+%global goipath github.com/linuxdeepin/dde-api
+
 Name:           dde-api
 Release:        1
 Version:	6.0.11
