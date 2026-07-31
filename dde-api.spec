@@ -3,12 +3,12 @@
 
 Name:           dde-api
 Release:        1
-Version:	6.0.11
+Version:	6.0.45
 Summary:        Go-lang bingding for dde-daemon
 License:        GPLv3+
 URL:            https://github.com/linuxdeepin/dde-api
 Source0:        https://github.com/linuxdeepin/dde-api/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
-Source1:	godeps-for-dde-api-6.0.11.tar.xz
+Source1:	godeps-for-dde-api-6.0.45.tar.xz
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(cairo-ft)
